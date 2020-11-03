@@ -1,15 +1,39 @@
 <template>
   <div>
-    <h3>Liste de songs</h3>
+    <header>
+      <slot name="header">
+        <h1>Liste des prénoms</h1>
+      </slot>
+    </header>
+
     <ul>
-      <li>Song #1: Dirty Dancing</li>
-      <li>Song #2: Animals</li>
+      <li v-for="(prenom, index) in filterPrenoms" :key="index">
+        <Item @increase="increase" :title="prenom" />
+      </li>
     </ul>
+    <p>Nb de click: {{ nbClick }}</p>
   </div>
 </template>
 
 <script>
+import Item from "./Item";
 export default {
-  // VueJS
+  name: "Liste",
+  props: {
+    filterPrenoms: Array,
+  },
+  data: function () {
+    return {
+      nbClick: 0,
+    };
+  },
+  methods: {
+    increase(val) {
+      this.nbClick += val;
+    },
+  },
+  components: {
+    Item,
+  },
 };
 </script>
